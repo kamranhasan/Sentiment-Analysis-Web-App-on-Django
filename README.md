@@ -3,8 +3,9 @@
 ## What's included?
 This includes everything we did for our own product launching feedback:
 
--A responsive, single-page traditional website
--A complete feedback control application
+-A responsive, single-page traditional website.
+
+-A complete feedback control application.
 
 ## Installation
 
