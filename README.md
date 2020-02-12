@@ -1,4 +1,4 @@
-# A Django Wedding Website and Invitation + Guest Management System
+# A Django Sentiment Analysis Web Application 
 
 ## What's included?
 This includes everything we did for our own product launching feedback:
