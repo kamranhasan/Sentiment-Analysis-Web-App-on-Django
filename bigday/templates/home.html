@@ -1,8 +1,73 @@
 {% extends "base.html" %}
-{% load static %}
+{% load staticfiles %}
 {% block page_head %}
     <!-- Custom CSS -->
     <link href="{% static 'bigday/css/creative.css' %}" rel="stylesheet">
+    <link href="{% static 'bigday/css/slider.css' %}" rel="stylesheet">
+<style>
+#main-header{background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,212,255,1) 100%);
+}
+.myButton {
+	box-shadow:inset 0px -3px 7px 0px #29bbff;
+	background:linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);
+	background-color:#2dabf9;
+	border-radius:3px;
+	border:1px solid #0b0e07;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	padding:9px 23px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #263666;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #0688fa 5%, #2dabf9 100%);
+	background-color:#0688fa;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+/* pop up icon styling */
+.popup-overlay {
+  /*Hides pop-up when there is no "active" class*/
+  visibility: hidden;
+  position: absolute;
+  background: #ffffff;
+  border: 3px solid #666666;
+  width: 50%;
+  height: 50%;
+  left: 25%;
+}
+
+.popup-overlay.active {
+  /*displays pop-up when "active" class is present*/
+  visibility: visible;
+  text-align: center;
+  width: 600px;
+  height: 500px;
+  background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgb(22, 26, 27) 100%);
+}
+
+.popup-content {
+  /*Hides pop-up content when there is no "active" class */
+  visibility: hidden;
+  
+}
+.close{
+    color: white;
+    align-content: center;
+}
+.popup-content.active {
+  /*Shows pop-up content when "active" class is present */
+  visibility: visible;
+}
+</style>
 {% endblock %}
 {% block page_content %}
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
@@ -15,7 +80,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">Cory and Rowena's Big Day</a>
+                <a class="navbar-brand page-scroll" href="#page-top">The Senti App</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -24,13 +89,10 @@
                         <a class="page-scroll" href="#main-header">Home</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#event">Event</a>
+                        <a class="page-scroll" href="#event">Talk with Chatbot</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#niagara">Niagara-on-the-Lake</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#other-stuff">Everything Else</a>
+                        <a class="page-scroll" href="#niagara">Start my Analysis</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#contact">Contact</a>
@@ -43,17 +105,50 @@
     </nav>
     {% block main %}
     <header id="main-header">
-        <div class="header-content">
+        <div class="header-content" >
             <div class="header-content-inner">
-                <h1>We did it!!</h1>
-                {% comment %}
-                <hr>
-                <h2>It's wedding week!</h2>
-                <a href="#welcome" class="btn btn-info btn-xl page-scroll">Welcome</a>
-                <a href="#event" class="btn btn-primary btn-xl page-scroll">Friday</a>
-                <a href="#saturday-event" class="btn btn-success btn-xl page-scroll">Saturday</a>
-                {% endcomment %}
+                <h3>Welcome To Your Personality Analysis App!!</h3>
             </div>
+        </div>
+        <!-- <base href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/"> -->
+<div id="slider">
+<figure>
+<img src="https://cdn.mindful.org/brain-sci.png?q=80&fm=jpg&fit=crop&w=1400&h=875" alt>
+</figure>
+</div>
+<div>
+        <div class="popup-overlay">
+                <!--Creates the popup content-->
+                <div class="popup-content">
+                  <h2>Steps for Sentiment Analysis</h2>
+                  <h3>Step 1</h3>
+                  <p>Play the video!</p>
+                  <h3>Step 2</h3>
+                  <p>Click on Stop Recording Button When you feel done!</p>
+                  <h3>Step 3</h3>
+                  <p>Upload your expressions video that you just downloaded, in the below form and submit it!</p>
+                  <h3>Step 4</h3>
+                  <p>There isn't any step 4, you will directed to your analysis of expressions during the video.
+                      Enjoy! </p>
+                  <!--popup's close button-->
+                  <button class="close myButton">Close</button> </div>
+              </div>
+              <!--Content shown when popup is not displayed-->
+              <h2>Click On The Instructions Button For Steps!</h2>
+              <button class="open myButton">Instructions</button>
+</div>
+        <div class="video conti">
+            
+            <video width='320' height='315' controls ></video>
+            <iframe id="video" width="420" height="315" src="//www.youtube.com/embed/N1NcYMiHoFc?rel=0" frameborder="0" allowfullscreen></iframe> 
+            <video id="vid2" width='320' height='315' controls></video>      
+            <p><button class="capture-button"id="btnStart" hidden>START RECORDING</button><br/>
+                <button class="capture-button myButton" id="btnStop">STOP RECORDING</button></p>  
+                <form  method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" name="myfile" id='input' /> <br>
+                    <input type="submit" class="myButton" >
+                </form>              
         </div>
     </header>
     <section class="bg-info" id="welcome">
@@ -63,85 +158,21 @@
                     <h2 class="section-heading">Welcome!</h2>
                     <hr>
                     <p>
-                        Hello friends and family! It's the week of the wedding!
+                        Hello friends and family! It's the era of Emotions and Analysis in which we are dwelling in!
                     </p>
                     <p>
-                        If you're looking for information about the event, look no further!
-                        Please see below for all the details regarding <a href="#event" class="page-scroll">Friday night's welcome party</a> and <a href="#saturday-event" class="page-scroll">Saturday's event</a>.
+                        If you're looking for information about your Sentiments and personality in a broader term, look no further!
+                        Please see below for all the details regarding <a href="#event" class="page-scroll">YOUR PERSONALITY CHECK PROCESS</a>.
                     </p>
                     <p>
-                        To get added to the wedding whatsapp group first create an account and then send an
-                        email to <a href="mailto:{{ support_email }}">{{ support_email }}</a>.
-                        Also, the current front-runner for the wedding hashtag (if you're into that sort of thing) is #getlukky.
+                        Looking forward to seeing you again soon!
                     </p>
-                    <p>
-                        Looking forward to seeing everyone soon!
-                    </p>
-                    <p class="pull-right">- Cory and Rowena</p>
+                    <p class="pull-right">- Developer</p>
                 </div>
             </div>
         </div>
     </section>
-    <section class="no-padding" id="navigation">
-        <div class="container-fluid">
-            <div class="row no-gutter">
-                <div class="col-lg-4 col-sm-6">
-                    <a href="#event" class="portfolio-box page-scroll">
-                        <img src="{% static 'bigday/images/ravine-nav.jpg' %}" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-name">
-                                    The Event
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a href="#niagara" class="portfolio-box page-scroll">
-                        <img src="{% static 'bigday/images/prince-of-wales-hotel-nav.jpg' %}" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-name">
-                                    Niagara-on-the-Lake
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a href="#story" class="portfolio-box page-scroll">
-                        <img src="{% static 'bigday/images/twelve-apostles-nav.jpg' %}" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-name">
-                                    Our Story
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-    {% include 'partials/event.html' %}
-    <section id="niagara">
-        {% include 'partials/niagara.html' %}
-    </section>
-{% comment %}
-        {% include 'partials/wedding-party.html' %}
-{% endcomment %}
-    <section id="other-stuff" class="bg-primary">
-        {% include 'partials/misc.html' %}
-    </section>
-    <section id="gifts">
-        {% include 'partials/gifts.html' %}
-    </section>
-    <section id="story" class="bg-dark">
-        {% include 'partials/story.html' %}
-    </section>
-    {% include 'partials/proposal.html' %}
-    {% include 'partials/save-the-dates.html' %}
+    
     <section id="contact" class="bg-dark">
         <div class="container">
             <div class="row">
@@ -152,7 +183,8 @@
                 </div>
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i>
-                    <p><a href="mailto:{{ support_email }}">{{ support_email }}</a></p>
+                    <p>kamranhasann@gmail.com</p>
+                                       
                 </div>
             </div>
         </div>
@@ -160,6 +192,276 @@
     {% endblock %}
 {% endblock %}
 {% block page_js %}
+<script>
+    let constraintObj = { 
+    audio: false, 
+    video: { 
+        facingMode: "user", 
+        width: { min: 640, ideal: 1280, max: 1920 },
+        height: { min: 480, ideal: 720, max: 1080 } 
+    } 
+}; 
+
+//handle older browsers that might implement getUserMedia in some way
+if (navigator.mediaDevices === undefined) {
+    navigator.mediaDevices = {};
+    navigator.mediaDevices.getUserMedia = function(constraintObj) {
+        let getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+        if (!getUserMedia) {
+            return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
+        }
+        return new Promise(function(resolve, reject) {
+            getUserMedia.call(navigator, constraintObj, resolve, reject);
+        });
+    }
+}else{
+    navigator.mediaDevices.enumerateDevices()
+    .then(devices => {
+        devices.forEach(device=>{
+            console.log(device.kind.toUpperCase(), device.label);
+            //, device.deviceId
+        })
+    })
+    .catch(err=>{
+        console.log(err.name, err.message);
+    })
+}
+navigator.mediaDevices.getUserMedia(constraintObj)
+.then(function(mediaStreamObj) {
+    //connect the media stream to the first video element
+    let video = document.querySelector('video');
+    if ("srcObject" in video) {
+        video.srcObject = mediaStreamObj;
+    } else {
+        //old version
+        video.src = window.URL.createObjectURL(mediaStreamObj);
+    }
+    
+    video.onloadedmetadata = function(ev) {
+        // $('#input').val(video);
+        // document.body.append(video.play())
+        //show in the video element what is being captured by the webcam
+        // document.getElementById('hidden').value=video.play();
+        
+        video.play();
+    };
+  //add listeners for saving video/audio
+    let start = document.getElementById('btnStart');
+    let stop = document.getElementById('btnStop');
+    let vidSave = document.getElementById('vid2');
+
+    // document.getElementById('takePictureField').value=vidSave;
+    // document.getElementsByClassName('video').append(vidSave);
+
+    console.log(typeof(vidSave));
+    let mediaRecorder = new MediaRecorder(mediaStreamObj);
+    let chunks = [];
+    
+    start.addEventListener('click', (ev)=>{
+        mediaRecorder.start();
+        
+        console.log(mediaRecorder.state);
+    })
+    focus();
+    var listener = window.addEventListener('blur', function() {
+    if (document.activeElement === document.getElementById('video')) {
+        $("#btnStart").click()
+    }
+    window.removeEventListener('blur', listener);
+});
+
+        $(".open").on("click", function() {
+  $(".popup-overlay, .popup-content").addClass("active");
+});
+
+//removes the "active" class to .popup and .popup-content when the "Close" button is clicked 
+$(".close, .popup-overlay").on("click", function() {
+  $(".popup-overlay, .popup-content").removeClass("active");
+});
+
+    stop.addEventListener('click', (ev)=>{
+        mediaRecorder.stop();
+        console.log(mediaRecorder.state);
+    });
+    mediaRecorder.ondataavailable = function(ev) {
+        chunks.push(ev.data);
+    }
+    mediaRecorder.onstop = (ev)=>{
+        // console.log(chunks)
+        let blob = new Blob(chunks, { 'type' : 'video/mp4;' });
+        chunks = [];
+        let videoURL = window.URL.createObjectURL(blob);
+        vidSave.src = videoURL;
+        download(blob);
+
+}
+  
+})
+
+.catch(function(err) { 
+    console.log(err.name, err.message); 
+});
+
+
+    </script>
+<script>
+
+
+
+
+(function (root, factory) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define([], factory);
+	} else if (typeof exports === 'object') {
+		// Node. Does not work with strict CommonJS, but
+		// only CommonJS-like environments that support module.exports,
+		// like Node.
+		module.exports = factory();
+	} else {
+		// Browser globals (root is window)
+		root.download = factory();
+  }
+}(this, function () {
+
+	return function download(data, strFileName, strMimeType) {
+
+		var self = window, // this script is only for browsers anyway...
+			defaultMime = "application/octet-stream", // this default mime also triggers iframe downloads
+			mimeType = strMimeType || defaultMime,
+			payload = data,
+			url = !strFileName && !strMimeType && payload,
+			anchor = document.createElement("a"),
+			toString = function(a){return String(a);},
+			myBlob = (self.Blob || self.MozBlob || self.WebKitBlob || toString),
+			fileName = strFileName || "download",
+			blob,
+			reader;
+			myBlob= myBlob.call ? myBlob.bind(self) : Blob ;
+	  
+		if(String(this)==="true"){ //reverse arguments, allowing download.bind(true, "text/xml", "export.xml") to act as a callback
+			payload=[payload, mimeType];
+			mimeType=payload[0];
+			payload=payload[1];
+		}
+
+
+		if(url && url.length< 2048){ // if no filename and no mime, assume a url was passed as the only argument
+			fileName = url.split("/").pop().split("?")[0];
+			anchor.href = url; // assign href prop to temp anchor
+		  	if(anchor.href.indexOf(url) !== -1){ // if the browser determines that it's a potentially valid url path:
+        		var ajax=new XMLHttpRequest();
+        		ajax.open( "GET", url, true);
+        		ajax.responseType = 'blob';
+        		ajax.onload= function(e){ 
+				  download(e.target.response, fileName, defaultMime);
+				};
+        		setTimeout(function(){ ajax.send();}, 0); // allows setting custom ajax headers using the return:
+			    return ajax;
+			} // end if valid url?
+		} // end if url?
+
+
+		//go ahead and download dataURLs right away
+		if(/^data\:[\w+\-]+\/[\w+\-]+[,;]/.test(payload)){
+		
+			if(payload.length > (1024*1024*1.999) && myBlob !== toString ){
+				payload=dataUrlToBlob(payload);
+				mimeType=payload.type || defaultMime;
+			}else{			
+				return navigator.msSaveBlob ?  // IE10 can't do a[download], only Blobs:
+					navigator.msSaveBlob(dataUrlToBlob(payload), fileName) :
+					saver(payload) ; // everyone else can save dataURLs un-processed
+			}
+			
+		}//end if dataURL passed?
+
+		blob = payload instanceof myBlob ?
+			payload :
+			new myBlob([payload], {type: mimeType}) ;
+
+
+		function dataUrlToBlob(strUrl) {
+			var parts= strUrl.split(/[:;,]/),
+			type= parts[1],
+			decoder= parts[2] == "base64" ? atob : decodeURIComponent,
+			binData= decoder( parts.pop() ),
+			mx= binData.length,
+			i= 0,
+			uiArr= new Uint8Array(mx);
+
+			for(i;i<mx;++i) uiArr[i]= binData.charCodeAt(i);
+
+			return new myBlob([uiArr], {type: type});
+		 }
+
+		function saver(url, winMode){
+
+			if ('download' in anchor) { //html5 A[download]
+				anchor.href = url;
+				anchor.setAttribute("download", fileName);
+				anchor.className = "download-js-link";
+				anchor.innerHTML = "downloading...";
+				anchor.style.display = "none";
+				document.body.appendChild(anchor);
+				setTimeout(function() {
+					anchor.click();
+					document.body.removeChild(anchor);
+					if(winMode===true){setTimeout(function(){ self.URL.revokeObjectURL(anchor.href);}, 250 );}
+				}, 66);
+				return true;
+			}
+
+			// handle non-a[download] safari as best we can:
+			if(/(Version)\/(\d+)\.(\d+)(?:\.(\d+))?.*Safari\//.test(navigator.userAgent)) {
+				url=url.replace(/^data:([\w\/\-\+]+)/, defaultMime);
+				if(!window.open(url)){ // popup blocked, offer direct download:
+					if(confirm("Displaying New Document\n\nUse Save As... to download, then click back to return to this page.")){ location.href=url; }
+				}
+				return true;
+			}
+
+			//do iframe dataURL download (old ch+FF):
+			var f = document.createElement("iframe");
+			document.body.appendChild(f);
+
+			if(!winMode){ // force a mime that will download:
+				url="data:"+url.replace(/^data:([\w\/\-\+]+)/, defaultMime);
+			}
+			f.src=url;
+			setTimeout(function(){ document.body.removeChild(f); }, 333);
+
+		}//end saver
+
+
+
+
+		if (navigator.msSaveBlob) { // IE10+ : (has Blob, but not a[download] or URL)
+			return navigator.msSaveBlob(blob, fileName);
+		}
+
+		if(self.URL){ // simple fast and modern way using Blob and URL:
+			saver(self.URL.createObjectURL(blob), true);
+		}else{
+			// handle non-Blob()+non-URL browsers:
+			if(typeof blob === "string" || blob.constructor===toString ){
+				try{
+					return saver( "data:" +  mimeType   + ";base64,"  +  self.btoa(blob)  );
+				}catch(y){
+					return saver( "data:" +  mimeType   + "," + encodeURIComponent(blob)  );
+				}
+			}
+
+			// Blob but not URL support:
+			reader=new FileReader();
+			reader.onload=function(e){
+				saver(this.result);
+			};
+			reader.readAsDataURL(blob);
+		}
+		return true;
+	}; /* end download() */
+}));</script>
     <!-- Plugin JavaScript -->
     <!-- Easing is for the vertical scroll animations -->
     <script src="{% static 'creative/js/jquery.easing.min.js' %}"></script>
@@ -167,4 +469,11 @@
     <script src="{% static 'creative/js/jquery.fittext.js' %}"></script>
     <!-- Custom Theme JavaScript -->
     <script src="{% static 'creative/js/creative.js' %}"></script>
+    
 {% endblock %}
+
+
+
+
+
+

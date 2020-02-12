@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'guests.apps.GuestsConfig',
+    # 'guests.apps.GuestsConfig',
+    'wedding'
 ]
 
 MIDDLEWARE = [
@@ -138,7 +139,7 @@ DEFAULT_WEDDING_TEST_EMAIL = DEFAULT_WEDDING_FROM_EMAIL
 BRIDE_AND_GROOM = 'Cory and Rowena'
 
 # This is used in links in save the date / invitations
-WEDDING_WEBSITE_URL = 'http://thehappycouple.com'
+# WEDDING_WEBSITE_URL = 'http://thehappycouple.com'
 WEDDING_CC_LIST = []  # put email addresses here if you want to cc someone on all your invitations
 
 # change to a real email backend in production
@@ -148,3 +149,9 @@ try:
     from .localsettings import *
 except ImportError:
     pass
+
+FILE_UPLOAD_MAX_MEMORY_SIZE = 157286400
+
+
+MEDIA_URL ='/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'wedding/')

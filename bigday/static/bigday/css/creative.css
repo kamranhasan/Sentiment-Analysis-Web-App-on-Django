@@ -193,7 +193,8 @@ header {
 }
 
 #main-header {
-    background-image: url('../images/wedding-selfie-better.jpg');
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,212,255,1) 100%);        
 }
 
 header .header-content {
@@ -223,7 +224,9 @@ header .header-content .header-content-inner p {
 }
 
 #second-header {
-    background-image: url('../images/chapmans-peak-view.jpg');
+    background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,212,255,1) 100%);
+
 }
 
 @media(min-width:768px) {
@@ -511,3 +514,6 @@ body {
     background-color: #222;
     padding-bottom: 30px;
 }
+
+
+/* from home.html */
